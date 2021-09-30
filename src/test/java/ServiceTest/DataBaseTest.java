@@ -36,7 +36,8 @@ public class DataBaseTest {
     static void tearDownAllure() {
         SelenideLogger.removeListener("allure");
     }
-//
+
+    //
     @Test
     void shouldNotSaveCreditIdOnPayPageTest() throws InterruptedException {
         var paymentPage = tourPurchasePage.payForTour();
@@ -57,14 +58,15 @@ public class DataBaseTest {
         assertEquals("null", DataBase.getCreditId());
     }
 
+
     @Test
-    void shouldApprovePaymentsWithApprovedCardOnPaymentPageTest() {
-        var paymentPage = tourPurchasePage.payForTour();
-        var approvedPayment = DataHelper.approvedPayment(DataHelper.randomPlusMonth());
-        paymentPage.fillAndSendPaymentInfo(approvedPayment.getCardNumber(), approvedPayment.getMonth(),
-                approvedPayment.getYear(), approvedPayment.getCardHolder(), approvedPayment.getCvv());
-        paymentPage.anyNotification();
-        assertEquals("APPROVED", DataBase.getPaymentStatus());
+    void shouldDeclinePaymentsWithDeclinedCardOnCreditPageTest() {
+        var creditPage = tourPurchasePage.buyWithCredit();
+        var declinedPayment = DataHelper.declinedPayment(DataHelper.randomPlusMonth());
+        creditPage.fillAndSendPaymentInfo(declinedPayment.getCardNumber(), declinedPayment.getMonth(),
+                declinedPayment.getYear(), declinedPayment.getCardHolder(), declinedPayment.getCvv());
+        creditPage.anyNotification();
+        assertEquals("DECLINED", DataBase.getCreditStatus());
     }
 
     @Test
@@ -87,13 +89,4 @@ public class DataBaseTest {
         assertEquals("APPROVED", DataBase.getCreditStatus());
     }
 
-    @Test
-    void shouldDeclinePaymentsWithDeclinedCardOnCreditPageTest() {
-        var creditPage = tourPurchasePage.buyWithCredit();
-        var declinedPayment = DataHelper.declinedPayment(DataHelper.randomPlusMonth());
-        creditPage.fillAndSendPaymentInfo(declinedPayment.getCardNumber(), declinedPayment.getMonth(),
-                declinedPayment.getYear(), declinedPayment.getCardHolder(), declinedPayment.getCvv());
-        creditPage.anyNotification();
-        assertEquals("DECLINED", DataBase.getCreditStatus());
-    }
 }
