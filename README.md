@@ -18,7 +18,7 @@
     `java -Dspring.datasource.url=jdbc:mysql://localhost:3306/db -jar artifacts/aqa-shop.jar`
 
 
-  ### **Запуск тестов:**
+  ### **Запуск авто-тестов:**
 
   - При интеграции с PostgreSQL: `gradlew clean test`
   - При интеграции с MySQL: `gradlew -DdbUrl=jdbc:mysql://localhost:3306/db clean test`
