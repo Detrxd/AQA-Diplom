@@ -7,4 +7,4 @@
 Стоит отметить то, что после исправлений ошибок необходимо сделать ретест.
 
 Скриншот из фреймворка Allure:
-[!AllureReport.png](AllureReport.png)
+![AllureReport](https://user-images.githubusercontent.com/83371479/135757599-5c1554df-08be-40b1-8251-f42c075f0fa9.png)
