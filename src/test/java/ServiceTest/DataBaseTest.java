@@ -80,6 +80,16 @@ public class DataBaseTest {
     }
 
     @Test
+    void shouldApprovePaymentsWithApprovedCardOnPaymentPageTest() {
+        var paymentPage = tourPurchasePage.payForTour();
+        var approvedPayment = DataHelper.approvedPayment(DataHelper.randomPlusMonth());
+        paymentPage.fillAndSendPaymentInfo(approvedPayment.getCardNumber(), approvedPayment.getMonth(),
+                approvedPayment.getYear(), approvedPayment.getCardHolder(), approvedPayment.getCvv());
+        paymentPage.anyNotification();
+        assertEquals("APPROVED", DataBase.getPaymentStatus());
+    }
+
+    @Test
     void shouldApprovePaymentsWithApprovedCardOnCreditPageTest() {
         var creditPage = tourPurchasePage.buyWithCredit();
         var approvedPayment = DataHelper.approvedPayment(DataHelper.randomPlusMonth());
