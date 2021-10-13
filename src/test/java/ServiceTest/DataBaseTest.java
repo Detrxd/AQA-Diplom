@@ -2,7 +2,7 @@ package ServiceTest;
 
 import DataHelperInstrument.DataBase;
 import DataHelperInstrument.DataHelper;
-import PageObject.PurchaseCardPage;
+import PageObject.VerifyPurchaseCardPage;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DataBaseTest {
 
-    PurchaseCardPage tourPurchasePage;
+    VerifyPurchaseCardPage tourPurchasePage;
 
     @BeforeAll
     static void allureSetup() {
@@ -24,7 +24,7 @@ public class DataBaseTest {
     @BeforeEach
     void browserSetUp() {
         open("http://localhost:8080/");
-        tourPurchasePage = new PurchaseCardPage();
+        tourPurchasePage = new VerifyPurchaseCardPage();
     }
 
     @AfterEach

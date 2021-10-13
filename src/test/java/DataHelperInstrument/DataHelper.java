@@ -31,7 +31,7 @@ public class DataHelper {
                 getRandomName(), getRandomCVV());
     }
 
-    public static PaymentInfo declinedPayment(int plusMonth) {
+      public static PaymentInfo declinedPayment(int plusMonth) {
         return new PaymentInfo(declinedCard, expiryMonth(plusMonth), expiryYear(plusMonth),
                 getRandomName(), getRandomCVV());
     }
@@ -47,22 +47,22 @@ public class DataHelper {
         return year;
     }
 
-    public static String expiryMonth(int plusMonths) {
-        var month = expiryDate(plusMonths).getMonthValue();
+    public static String expiryMonth(int plusMonth) {
+        var month = expiryDate(plusMonth).getMonthValue();
         if (month < 10) {
-            String monthFormat= "0" + Integer.toString(month);
+            String monthFormat = "0" + Integer.toString(month);
             return monthFormat;
         }
         return Integer.toString(month);
     }
 
     public static int randomPlusMonth() {
-       Random random = new Random();
-       int plusMonth = random.nextInt(58) + 1;
-       return plusMonth;
+        Random random = new Random();
+        int plusMonth = random.nextInt(58) + 1;
+        return plusMonth;
     }
 
-    public static String getRandomName(){
+    public static String getRandomName() {
         String name = fakerEn.name().fullName();
         return name;
     }

@@ -13,7 +13,7 @@ import static org.openqa.selenium.Keys.CONTROL;
 import static org.openqa.selenium.Keys.DELETE;
 
 @Data
-public class CreditBuyTour {
+public class VerifyCreditBuyTourPage {
     private SelenideElement header = $("[class = 'heading heading_size_m heading_theme_alfa-on-white']");
     private SelenideElement creditButton = $(byText("Купить в кредит"));
     private SelenideElement cardNumberField = $(byText("Номер карты")).parent().$(".input__control");
@@ -27,13 +27,13 @@ public class CreditBuyTour {
     private SelenideElement inputInvalid = $(".input__sub");
     private SelenideElement anyNotification = $(".notification");
 
-    public CreditBuyTour() {
+    public VerifyCreditBuyTourPage() {
         header.shouldBe(visible).shouldHave(exactText("Оплата по карте"));
     }
 
-    public PayTourPage buyWithCredit() {
+    public VerifyPayTourPage buyWithCredit() {
         creditButton.click();
-        return new PayTourPage();
+        return new VerifyPayTourPage();
     }
 
     private void clearForm() {

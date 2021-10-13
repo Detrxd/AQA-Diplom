@@ -13,7 +13,7 @@ import static org.openqa.selenium.Keys.CONTROL;
 import static org.openqa.selenium.Keys.DELETE;
 
 @Data
-public class PayTourPage {
+public class VerifyPayTourPage {
     private SelenideElement header = $("[class = 'heading heading_size_m heading_theme_alfa-on-white']");
     private SelenideElement payButton = $(byText("Купить"));
     private SelenideElement cardNumberField = $(byText("Номер карты")).parent().$(".input__control");
@@ -27,16 +27,16 @@ public class PayTourPage {
     private SelenideElement inputInvalid = $(".input__sub");
     private SelenideElement anyNotification = $(".notification");
 
-    public PayTourPage() {
+    public VerifyPayTourPage() {
         header.shouldBe(visible).shouldHave(exactText("Кредит по данным карты"));
     }
 
-    public CreditBuyTour TourPay() {
+    public VerifyCreditBuyTourPage TourPay() {
         payButton.click();
-        return new CreditBuyTour();
+        return new VerifyCreditBuyTourPage();
     }
 
-    private void clearField() {
+    private void clearFields() {
         cardNumberField.sendKeys(CONTROL + "A", DELETE);
         monthField.sendKeys(CONTROL + "A", DELETE);
         yearField.sendKeys(CONTROL + "A", DELETE);
@@ -45,7 +45,7 @@ public class PayTourPage {
     }
 
     public void fillAndSendPaymentInfo(String card, String month, String year, String name, String cvv) {
-        clearField();
+        clearFields();
         cardNumberField.setValue(card);
         monthField.setValue(month);
         yearField.setValue(year);
@@ -66,8 +66,8 @@ public class PayTourPage {
                 shouldHave(exactText("Ошибка\n" + "Ошибка! Банк отказал в проведении операции."));
     }
 
-    public void sendClearForm() {
-        clearField();
+    public void sendClearForms() {
+        clearFields();
         nextButton.click();
         inputInvalid.shouldBe(visible);
     }
