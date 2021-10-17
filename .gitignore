@@ -7,6 +7,7 @@ build/
 .allure
 data_sql
 postgres-data
+allure-results
 
 ### STS ###
 .apt_generated

@@ -7,25 +7,25 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
-public class VerifyPurchaseCardPage {
+public class shouldIncludePurchaseCardPage {
     private SelenideElement header = $("[class = 'heading heading_size_l heading_theme_alfa-on-white']");
     private SelenideElement tourConditions =
             $("[class='grid-row grid-row_gutter-mobile-s_16 grid-row_gutter-desktop-m_24 grid-row_justify_between grid-row_theme_alfa-on-white']");
     private SelenideElement payButton = $(byText("Купить"));
     private SelenideElement creditButton = $(byText("Купить в кредит"));
 
-    public VerifyPurchaseCardPage() {
+    public shouldIncludePurchaseCardPage() {
         header.shouldBe(visible).shouldHave(Condition.exactText("Путешествие дня"));
         tourConditions.shouldBe(visible);
     }
 
-    public VerifyCreditBuyTourPage payForTour() {
+    public CreditBuyTourPage payForTour() {
         payButton.click();
-        return new VerifyCreditBuyTourPage();
+        return new CreditBuyTourPage();
     }
 
-    public VerifyPayTourPage buyWithCredit() {
+    public PayTourPage buyWithCredit() {
         creditButton.click();
-        return new VerifyPayTourPage();
+        return new PayTourPage();
     }
 }

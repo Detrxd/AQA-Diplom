@@ -13,9 +13,9 @@ import static org.openqa.selenium.Keys.CONTROL;
 import static org.openqa.selenium.Keys.DELETE;
 
 @Data
-public class VerifyCreditBuyTourPage {
+public class PayTourPage {
     private SelenideElement header = $("[class = 'heading heading_size_m heading_theme_alfa-on-white']");
-    private SelenideElement creditButton = $(byText("Купить в кредит"));
+    private SelenideElement payButton = $(byText("Купить"));
     private SelenideElement cardNumberField = $(byText("Номер карты")).parent().$(".input__control");
     private SelenideElement monthField = $(byText("Месяц")).parent().$(".input__control");
     private SelenideElement yearField = $(byText("Год")).parent().$(".input__control");
@@ -27,16 +27,16 @@ public class VerifyCreditBuyTourPage {
     private SelenideElement inputInvalid = $(".input__sub");
     private SelenideElement anyNotification = $(".notification");
 
-    public VerifyCreditBuyTourPage() {
-        header.shouldBe(visible).shouldHave(exactText("Оплата по карте"));
+    public PayTourPage() {
+        header.shouldBe(visible).shouldHave(exactText("Кредит по данным карты"));
     }
 
-    public VerifyPayTourPage buyWithCredit() {
-        creditButton.click();
-        return new VerifyPayTourPage();
+    public CreditBuyTourPage TourPay() {
+        payButton.click();
+        return new CreditBuyTourPage();
     }
 
-    private void clearForm() {
+    private void clearFields() {
         cardNumberField.sendKeys(CONTROL + "A", DELETE);
         monthField.sendKeys(CONTROL + "A", DELETE);
         yearField.sendKeys(CONTROL + "A", DELETE);
@@ -44,8 +44,8 @@ public class VerifyCreditBuyTourPage {
         cvvNumberField.sendKeys(CONTROL + "A", DELETE);
     }
 
-    public void fillAndSendPaymentInfo (String card, String month, String year, String name, String cvv) {
-        clearForm();
+    public void fillAndSendPaymentInfo(String card, String month, String year, String name, String cvv) {
+        clearFields();
         cardNumberField.setValue(card);
         monthField.setValue(month);
         yearField.setValue(year);
@@ -54,30 +54,29 @@ public class VerifyCreditBuyTourPage {
         nextButton.click();
     }
 
-    public void successfulSendingForm (String card, String month, String year, String name, String cvv) {
+    public void verifySuccessfulSending(String card, String month, String year, String name, String cvv) {
         fillAndSendPaymentInfo(card, month, year, name, cvv);
         successNotification.shouldBe(visible, Duration.ofSeconds(15)).
                 shouldHave(exactText("Успешно\n" + "Операция одобрена Банком."));
     }
 
-    public void unsuccessfulSendingForm (String card, String month, String year, String name, String cvv) {
+    public void shouldUnsuccessfulSending(String card, String month, String year, String name, String cvv) {
         fillAndSendPaymentInfo(card, month, year, name, cvv);
         errorNotification.shouldBe(visible, Duration.ofSeconds(15)).
                 shouldHave(exactText("Ошибка\n" + "Ошибка! Банк отказал в проведении операции."));
     }
 
-    public void sendClearForm() {
-        clearForm();
+    public void shouldSendClearForms() {
+        clearFields();
         nextButton.click();
         inputInvalid.shouldBe(visible);
     }
 
-    public void inputInvalidError() {
+    public void checkInputInvalidError() {
         inputInvalid.shouldBe(visible);
     }
 
-    public void anyNotification() {
+    public void checkAnyNotification() {
         anyNotification.shouldBe(visible, Duration.ofSeconds(15));
     }
-
 }

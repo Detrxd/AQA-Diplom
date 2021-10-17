@@ -2,7 +2,7 @@ package ServiceTest;
 
 import DataHelperInstrument.DataBase;
 import DataHelperInstrument.DataHelper;
-import PageObject.VerifyPurchaseCardPage;
+import PageObject.shouldIncludePurchaseCardPage;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DataBaseTest {
 
-    VerifyPurchaseCardPage tourPurchasePage;
+    shouldIncludePurchaseCardPage tourPurchasePage;
 
     @BeforeAll
     static void allureSetup() {
@@ -24,7 +24,7 @@ public class DataBaseTest {
     @BeforeEach
     void browserSetUp() {
         open("http://localhost:8080/");
-        tourPurchasePage = new VerifyPurchaseCardPage();
+        tourPurchasePage = new shouldIncludePurchaseCardPage();
     }
 
     @AfterEach
@@ -54,7 +54,7 @@ public class DataBaseTest {
         var approvedPayment = DataHelper.approvedPayment(DataHelper.randomPlusMonth());
         creditPage.fillAndSendPaymentInfo(approvedPayment.getCardNumber(), approvedPayment.getMonth(),
                 approvedPayment.getYear(), approvedPayment.getCardHolder(), approvedPayment.getCvv());
-        creditPage.anyNotification();
+        creditPage.checkAnyNotification();
         assertEquals("null", DataBase.getCreditId());
     }
 
@@ -65,7 +65,7 @@ public class DataBaseTest {
         var declinedPayment = DataHelper.declinedPayment(DataHelper.randomPlusMonth());
         creditPage.fillAndSendPaymentInfo(declinedPayment.getCardNumber(), declinedPayment.getMonth(),
                 declinedPayment.getYear(), declinedPayment.getCardHolder(), declinedPayment.getCvv());
-        creditPage.anyNotification();
+        creditPage.checkAnyNotification();
         assertEquals("DECLINED", DataBase.getCreditStatus());
     }
 
@@ -95,7 +95,7 @@ public class DataBaseTest {
         var approvedPayment = DataHelper.approvedPayment(DataHelper.randomPlusMonth());
         creditPage.fillAndSendPaymentInfo(approvedPayment.getCardNumber(), approvedPayment.getMonth(),
                 approvedPayment.getYear(), approvedPayment.getCardHolder(), approvedPayment.getCvv());
-        creditPage.anyNotification();
+        creditPage.checkAnyNotification();
         assertEquals("APPROVED", DataBase.getCreditStatus());
     }
 

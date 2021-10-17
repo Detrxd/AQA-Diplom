@@ -41,5 +41,6 @@ test {
     systemProperty 'dbUser', System.getProperty('dbUser', "user")
     systemProperty 'dbPassword',  System.getProperty('dbPassword', "pass")
     systemProperty 'dbUrl', System.getProperty('dbUrl', "jdbc:postgresql://localhost:5432/db")
+    systemProperty 'webUrl', System.getProperty('WebUrl', "http://localhost:9999")
     systemProperty "file.encoding", "utf-8"
 }
