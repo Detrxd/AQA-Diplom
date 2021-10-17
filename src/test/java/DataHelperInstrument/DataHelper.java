@@ -27,12 +27,12 @@ public class DataHelper {
     }
 
     public static PaymentInfo approvedPayment(int plusMonth) {
-        return new PaymentInfo(approvedCard, expiryMonth(plusMonth), expiryYear(plusMonth),
+        return new PaymentInfo(approvedCard, expiryMonth(plusMonth, 10), expiryYear(plusMonth),
                 getRandomName(), getRandomCVV());
     }
 
       public static PaymentInfo declinedPayment(int plusMonth) {
-        return new PaymentInfo(declinedCard, expiryMonth(plusMonth), expiryYear(plusMonth),
+        return new PaymentInfo(declinedCard, expiryMonth(plusMonth, 10), expiryYear(plusMonth),
                 getRandomName(), getRandomCVV());
     }
 
@@ -47,13 +47,13 @@ public class DataHelper {
         return year;
     }
 
-    public static String expiryMonth(int plusMonth) {
-        var month = expiryDate(plusMonth).getMonthValue();
-        if (month < 10) {
-            String monthFormat = "0" + Integer.toString(month);
-            return monthFormat;
+    public static String expiryMonth(int plusMonth, int digits) {
+        StringBuffer buffer = new StringBuffer(digits);
+        int zeroes = digits - (int) (Math.log(plusMonth) / Math.log(10)) - 1;
+        for (int i = 0; i < zeroes; i++) {
+            buffer.append(0);
         }
-        return Integer.toString(month);
+        return buffer.append(plusMonth).toString();
     }
 
     public static int randomPlusMonth() {
